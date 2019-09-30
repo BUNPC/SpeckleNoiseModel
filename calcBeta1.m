@@ -6,7 +6,7 @@ function beta=calcBeta1(L_c,rho,lambda,mu_a,mu_sp,BFi,n)
 %% based on code provided by Xiaojun Cheng (BU)
 
 %             L_c=.05;% cm  An ideal sech^2 0.5 ns FWHM pulse has a linewidth of 0.315 / 0.5 ns = 0.63 GHz
-%             %The coherence length of such a transform-limited pulse is c / pi / 0.63  GHz = 15 cm
+%             %The coherence length of such a transform-limited pulse is c / pi / 0.63 Â GHz = 15 cm
 %
 %             rho = .9; % cm distance between source and detector
 %             lambda = 830e-7; %cm wavelength
@@ -83,23 +83,6 @@ CorrMatrix = CorrMatrix/sum(Plt).^2;
 g2=1+squeeze(sum(sum(CorrMatrix)));
 %   figure(99)
 %             semilogx(tau,g2)
-%% Vectorized previous optimization but no performance gain
-
-%             [Plt1,Plt2]=meshgrid(Plt,Plt);
-%             Pltp=Plt1.*Plt2;
-%             [Slt1,Slt2,Tau]=meshgrid(Slt,Slt,tau);
-%
-%
-%             CorrMatrix0=Pltp.*exp( -2*mu_sp*BFi*k^2*Slt1.*Tau).*exp( -2*mu_sp*BFi*k^2*Slt2.*Tau);
-%             CorrMatrix= Pltp.*exp( -2*mu_sp*BFi*k^2*Slt1.*Tau).*exp( -2*mu_sp*BFi*k^2*Slt2.*Tau).*exp(-2*(Slt1-Slt2).^2/L_coherence.^2);
-%
-%             CorrMatrix0=CorrMatrix0/sum(Plt).^2;
-%             CorrMatrix = CorrMatrix/sum(Plt).^2;
-%
-%             g20=1+squeeze(sum(sum(CorrMatrix0),2));
-%             g2=1+squeeze(sum(sum(CorrMatrix),2));
-
-%%
 
 beta=g2(1)-1;
 
